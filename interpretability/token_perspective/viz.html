@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>  
+<html lang="zh">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Word List with Backgrounds</title>  
+    <style>  
+        .word {
+            padding: 1px;  
+            margin: 1px;  
+            border-radius: 0px;  
+            color: black;
+            font-family: "Times New Roman";
+            display: inline-block;
+        }  
+        #wordList1 {  
+            border: 1.5px solid black;
+            padding: 2px;
+            margin: 20px;
+            max-width: 412px;
+            max-height: 300px;
+        }  
+    </style>  
+</head>  
+<body>  
+
+<div id="wordList1"></div>  
+
+<script>  
+    const data1 = {"words": ["<s>", "[inversion]", "I", "feel", "very", "negatively", "about", "the", "current", "political", "climate", "in", "the", "US", ".", "I", "would", "like", "to", "see", "more", "bipartisanship", "and", "less", "division", "between", "Democrats", "and", "Republicans", ".[/inversion]"], "weights": [0.39726948738098145, 0.4591701924800873, 0.1297350525856018, 0.18277420103549957, 0.1304171234369278, 0.24692991375923157, 0.15261857211589813, 0.10805866867303848, 0.1125379279255867, 0.11912064254283905, 0.1737215220928192, 0.08462700247764587, 0.13007865846157074, 0.25984832644462585, 2.2333953380584717, 0.155464306473732, 0.18522672355175018, 0.13064514100551605, 0.0949675515294075, 0.07916409522294998, 0.07739176601171494, 0.22385768592357635, 0.07543805241584778, 0.060687460005283356, 0.06442674249410629, 0.06355589628219604, 0.17505645751953125, 0.06109282374382019, 0.0670047327876091, 0.4708525538444519]};
+
+    function getColor(weight) {   
+        const normalized = 1 - Math.min(weight, 1.0);
+        let p = 0.92;
+        const red = 255;
+        const green = 60;
+        const blue = 60;
+        let alpha = 1-normalized*0.9;
+        if (normalized > p){
+            alpha = 0.1;
+        }
+        let p_high = 0.85;
+        let p_low = 0.6;
+        if (normalized > p_low && normalized < p_high){
+            alpha = 0.5;
+        }
+        if (normalized < p_low){
+            alpha = 0.9;
+        }
+        return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+    }  
+
+    // Painting Wordlists
+    const wordListDiv1 = document.getElementById('wordList1');  
+    data1.words.forEach((word, index) => {  
+        const weight = data1.weights[index];  
+        const wordSpan = document.createElement('span');  
+        wordSpan.className = 'word';  
+        wordSpan.style.backgroundColor = getColor(weight);  
+        wordSpan.textContent = word;  
+        wordListDiv1.appendChild(wordSpan);  
+    });
+</script>  
+
+</body>  
+</html>
