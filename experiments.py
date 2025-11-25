@@ -28,23 +28,13 @@ def main_result(args):
 
     task_list = [
         'alpaca_full',
-        'alpaca_lora',
         'dolly_full',
-        'dolly_lora',
         'gpteacher_full',
-        'gpteacher_lora',
         'lamini_full',
-        'lamini_lora',
         'selfinstruct_full',
-        'selfinstruct_lora',
         'evolcode_full',
-        'evolcode_lora',
         'wizardlmevol_full',
-        'wizardlmevol_lora',
-        'arxivmath_full',
-        'arxivmath_lora',
-        'IID',
-        'non_IID',
+        'arxivmath_full'
     ]
     metrics = INV2A_Metrics()
     for task_name in task_list:
